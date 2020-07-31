@@ -3,43 +3,32 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class CF1385D {
+public class CF1388A {
 	public static void main(String[] args) throws Exception {
-		new CF1385D().run();
+		new CF1388A().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		PrintWriter out = new PrintWriter(System.out);
 		///
-		int t = f.nextInt();
-		while(t-->0) {
+		int T = f.nextInt();
+		while(T-->0) {
 			int n = f.nextInt();
-			String s = f.nextLine();
-			System.out.println(n - check(s, n, 'a'));
+			if(n <= 30) out.println("NO");
 			
+			else {
+				//2 * 3, 2 * 5, 2 * 7
+				out.println("YES");
+				
+				if(n == 36) out.println("6 10 15 5");
+				else if(n == 44) out.println("6 10 15 13");
+				else if(n == 40) out.println("6 10 15 9");
+				else out.println("6 10 14 " + (n-30));
+			}
 		}
 		///
 		out.flush();
-	}
-	
-	public int check(String s, int n, char c) {
-		if(s.length() == 1) return s.charAt(0) == c ? 1 : 0;
-		
-		String first = s.substring(0,n/2);
-		String sec = s.substring(n/2);
-		
-		int frontC = 0, backC = 0;
-		for(int i = 0; i < n/2; i++) {
-			if(first.charAt(i) == c) frontC++;
-			if(sec.charAt((n/2)-1-i) == c) backC++;	
-		}
-		
-		c++;
-		int fi = check(s.substring(0,n/2), n/2, c);
-		int se = check(s.substring(n/2), n/2, c);
-		
-		return Math.max(frontC + se, backC + fi);
 	}
 
 	///

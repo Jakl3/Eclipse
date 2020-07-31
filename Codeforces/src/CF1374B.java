@@ -3,9 +3,9 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class CF1385D {
+public class CF1374B {
 	public static void main(String[] args) throws Exception {
-		new CF1385D().run();
+		new CF1374B().run();
 	}
 
 	public void run() throws Exception {
@@ -15,31 +15,21 @@ public class CF1385D {
 		int t = f.nextInt();
 		while(t-->0) {
 			int n = f.nextInt();
-			String s = f.nextLine();
-			System.out.println(n - check(s, n, 'a'));
+			int cnt2 = 0, cnt3 = 0;
+			while(n%2==0) {
+				cnt2++;
+				n/=2;
+			}
+			while(n%3==0) {
+				cnt3++;
+				n/=3;
+			}
+			if(n==1 && cnt2 <= cnt3) out.println(2 * cnt3 - cnt2);
+			else out.println(-1);
 			
 		}
 		///
 		out.flush();
-	}
-	
-	public int check(String s, int n, char c) {
-		if(s.length() == 1) return s.charAt(0) == c ? 1 : 0;
-		
-		String first = s.substring(0,n/2);
-		String sec = s.substring(n/2);
-		
-		int frontC = 0, backC = 0;
-		for(int i = 0; i < n/2; i++) {
-			if(first.charAt(i) == c) frontC++;
-			if(sec.charAt((n/2)-1-i) == c) backC++;	
-		}
-		
-		c++;
-		int fi = check(s.substring(0,n/2), n/2, c);
-		int se = check(s.substring(n/2), n/2, c);
-		
-		return Math.max(frontC + se, backC + fi);
 	}
 
 	///

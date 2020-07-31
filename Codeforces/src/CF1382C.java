@@ -3,9 +3,9 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class CF1385D {
+public class CF1382C {
 	public static void main(String[] args) throws Exception {
-		new CF1385D().run();
+		new CF1382C().run();
 	}
 
 	public void run() throws Exception {
@@ -15,31 +15,37 @@ public class CF1385D {
 		int t = f.nextInt();
 		while(t-->0) {
 			int n = f.nextInt();
-			String s = f.nextLine();
-			System.out.println(n - check(s, n, 'a'));
+			String as = f.nextLine(), bs = f.nextLine();
+			if(as.equals(bs)) { out.println(0); continue; }
+			char[] a = as.toCharArray();
+			char[] b = bs.toCharArray();
 			
+			
+			List<Integer> aMoves = new ArrayList<>();
+			int i = 1;
+			while(i < n) {
+				if(a[i] != a[i-1]) aMoves.add(i);
+				i++;
+			}
+			if(a[n-1] == '1') aMoves.add(n);
+			
+			List<Integer> bMoves = new ArrayList<>();
+			i = 1;
+			while(i < n) {
+				if(b[i] != b[i-1]) bMoves.add(i);
+				i++;
+			}
+			if(b[n-1] == '1') bMoves.add(n);
+			Collections.reverse(bMoves);
+			
+			int len = aMoves.size() + bMoves.size();
+			out.print(len);
+			for(int item : aMoves) out.print(" " + item);
+			for(int item : bMoves) out.print(" " + item);
+			out.println();
 		}
 		///
 		out.flush();
-	}
-	
-	public int check(String s, int n, char c) {
-		if(s.length() == 1) return s.charAt(0) == c ? 1 : 0;
-		
-		String first = s.substring(0,n/2);
-		String sec = s.substring(n/2);
-		
-		int frontC = 0, backC = 0;
-		for(int i = 0; i < n/2; i++) {
-			if(first.charAt(i) == c) frontC++;
-			if(sec.charAt((n/2)-1-i) == c) backC++;	
-		}
-		
-		c++;
-		int fi = check(s.substring(0,n/2), n/2, c);
-		int se = check(s.substring(n/2), n/2, c);
-		
-		return Math.max(frontC + se, backC + fi);
 	}
 
 	///

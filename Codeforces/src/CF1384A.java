@@ -3,9 +3,9 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class CF1385D {
+public class CF1384A {
 	public static void main(String[] args) throws Exception {
-		new CF1385D().run();
+		new CF1384A().run();
 	}
 
 	public void run() throws Exception {
@@ -15,31 +15,26 @@ public class CF1385D {
 		int t = f.nextInt();
 		while(t-->0) {
 			int n = f.nextInt();
-			String s = f.nextLine();
-			System.out.println(n - check(s, n, 'a'));
+			int[] nums = new int[n];
+			for(int i = 0; i < n; i++) nums[i] = f.nextInt();
 			
+			String s = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
+			
+			char[][] c = new char[n+1][s.length()];
+			
+			for(int i = 0; i < n; i++) {
+				
+				c[i] = s.toCharArray();
+				c[i+1] = s.toCharArray();
+				
+				c[i+1][nums[i]] = c[i+1][nums[i]] == 'z' ? 'a' : (char)(c[i+1][nums[i]]+1);
+				s = new String(c[i+1]);
+			}
+			
+			for(char[] item : c) out.println(new String(item));
 		}
 		///
 		out.flush();
-	}
-	
-	public int check(String s, int n, char c) {
-		if(s.length() == 1) return s.charAt(0) == c ? 1 : 0;
-		
-		String first = s.substring(0,n/2);
-		String sec = s.substring(n/2);
-		
-		int frontC = 0, backC = 0;
-		for(int i = 0; i < n/2; i++) {
-			if(first.charAt(i) == c) frontC++;
-			if(sec.charAt((n/2)-1-i) == c) backC++;	
-		}
-		
-		c++;
-		int fi = check(s.substring(0,n/2), n/2, c);
-		int se = check(s.substring(n/2), n/2, c);
-		
-		return Math.max(frontC + se, backC + fi);
 	}
 
 	///

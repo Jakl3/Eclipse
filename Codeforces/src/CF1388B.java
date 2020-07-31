@@ -3,43 +3,41 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class CF1385D {
+public class CF1388B {
 	public static void main(String[] args) throws Exception {
-		new CF1385D().run();
+		new CF1388B().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		PrintWriter out = new PrintWriter(System.out);
 		///
-		int t = f.nextInt();
-		while(t-->0) {
+		int T = f.nextInt();
+		while(T-->0) {
 			int n = f.nextInt();
-			String s = f.nextLine();
-			System.out.println(n - check(s, n, 'a'));
-			
+			int i = 0;
+			int k = 0;
+			while(i < n) {
+				i += 4;
+				k++;
+			}
+			//out.println(i + " " + k);
+			char[] c = new char[n];
+			for(int j = 0; j < n-k; j++) c[j] = '9';
+			for(int j = n-k; j < n; j++) c[j] = '8';
+			System.out.println(new String(c));
 		}
 		///
 		out.flush();
 	}
 	
-	public int check(String s, int n, char c) {
-		if(s.length() == 1) return s.charAt(0) == c ? 1 : 0;
-		
-		String first = s.substring(0,n/2);
-		String sec = s.substring(n/2);
-		
-		int frontC = 0, backC = 0;
-		for(int i = 0; i < n/2; i++) {
-			if(first.charAt(i) == c) frontC++;
-			if(sec.charAt((n/2)-1-i) == c) backC++;	
+	public String get(int n) {
+		String s = "";
+		while(n > 0) {
+			s = Integer.toBinaryString(n % 10) + s;
+			n/=10;
 		}
-		
-		c++;
-		int fi = check(s.substring(0,n/2), n/2, c);
-		int se = check(s.substring(n/2), n/2, c);
-		
-		return Math.max(frontC + se, backC + fi);
+		return s;
 	}
 
 	///
