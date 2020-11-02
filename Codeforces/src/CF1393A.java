@@ -3,54 +3,22 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
-
-	PrintWriter out;
-
+public class CF1393A {
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new CF1393A().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
-		out = new PrintWriter(System.out);
+		PrintWriter out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
-			}
-			else stack.push(c);
+		int T = f.nextInt();
+		while(T-->0) {
+			long n = f.nextLong();
+			out.println(n/2 + 1);
 		}
-		if(ok) out.println("ok so far");
 		///
-		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///
@@ -99,10 +67,6 @@ public class delimitersoup {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-		}
-
-		public void close() throws IOException {
-			reader.close();
 		}
 	}
 }

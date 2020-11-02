@@ -3,54 +3,60 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
+public class airconditioned {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new airconditioned().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
+		int N = f.nextInt();
+		ArrayList<Pair> list = new ArrayList<>();
+		for(int i = 0; i < N; i++) list.add(new Pair(f.nextInt(), f.nextInt()));
+		
+		Collections.sort(list);
+		
+		int currRoom = list.get(0).b;
+		int cnt = 0;
+		for(int i = 0; i < list.size(); i++) {
+			Pair p = list.get(i);
+			if(p.a > currRoom) {
+				currRoom = p.b;
+				cnt++;
+			}
+			else {
+				if(p.b < currRoom) {
+					currRoom = p.b;
 				}
 			}
-			else stack.push(c);
 		}
-		if(ok) out.println("ok so far");
+		out.println(cnt+1);
+		
 		///
 		f.close();
 		out.flush();
 	}
 	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
+	private class Pair implements Comparable<Pair> {
+		int a,b;
+		public Pair(int a, int b) {
+			this.a = a;
+			this.b = b;
 		}
-		return -1;
+		
+		public int compareTo(Pair p) {
+			if(this.a == p.a) return this.b - p.b;
+			return this.a - p.a;
+		}
+		
+		public String toString() {
+			return a + " " + b;
+		}
 	}
 
 	///

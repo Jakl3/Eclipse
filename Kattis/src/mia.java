@@ -3,54 +3,42 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
+public class mia {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new mia().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
-			}
-			else stack.push(c);
+		String s;
+		while(!(s=f.nextLine()).equals("0 0 0 0")) {
+			int a1 = s.charAt(0)-'0';
+			int a2 = s.charAt(2)-'0';
+			int b1 = s.charAt(4)-'0';
+			int b2 = s.charAt(6)-'0';
+			
+			String a = "" + a1 + a2;
+			String b = "" + b1 + b2;
+			
+			int aVal = 0, bVal = 0;
+			if(a.equals("21") || a.equals("12")) aVal = 1000;
+			else if(a1 == a2) aVal = 100+a1;
+			else aVal = Integer.parseInt("" + Math.max(a1,a2) + Math.min(a1, a2));
+			
+			if(b.equals("21") || b.equals("12")) bVal = 1000;
+			else if(b1 == b2) bVal = 100+b1;
+			else bVal = Integer.parseInt("" + Math.max(b1,b2) + Math.min(b1, b2));
+			
+			out.println(bVal > aVal ? "Player 2 wins." : aVal > bVal ? "Player 1 wins." : "Tie.");
 		}
-		if(ok) out.println("ok so far");
 		///
 		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///

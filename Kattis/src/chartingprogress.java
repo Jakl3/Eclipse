@@ -3,55 +3,91 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
+public class chartingprogress {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new chartingprogress().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
+		String s;
+		while((s=f.nextLine())!=null) {
+			List<char[]> mat = new ArrayList<>();
+
+			
+			String in = s;
+			
+			int cnt = 0;
+			while(in!=null) {
+				if(in.equals("")) break;
+				char[] c = in.toCharArray();
+				Arrays.sort(c);
+				mat.add(c);
+				for(char item : c) {
+					if(item == '*') cnt++;
+					else break;
 				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
+				
+				in = f.nextLine();
 			}
-			else stack.push(c);
+			
+			
+			
+			
+			int n = mat.size();
+
+			int min = 0;
+			for(int i = n-1; i >= 0; i--) {
+				sort(mat.get(i));
+				shift(mat.get(i),min);
+				int t = indexOf(mat.get(i));
+				min = t == -1 ? min : t+1;
+			}
+			
+			for(int i = 0; i < mat.size(); i++) {
+				System.out.println(new String(mat.get(i)));
+			}
 		}
-		if(ok) out.println("ok so far");
 		///
 		f.close();
 		out.flush();
 	}
 	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
+	int indexOf(char[] arr) {
+		for(int i = arr.length-1; i >= 0; i--) {
+			if(arr[i] == '*') return i;
 		}
 		return -1;
 	}
+	
+	void shift(char[] arr, int shift) {
+		for(int i = arr.length-1; i >= 0; i--) {
+			if(arr[i] == '*') {
+				arr[i] = '.';
+				arr[i+shift] = '*';
+			}
+		}
+	}
+	
+	void sort(char[] arr) 
+    { 
+        int n = arr.length; 
+        for (int i = 1; i < n; ++i) { 
+            char key = arr[i]; 
+            int j = i - 1; 
+
+            while (j >= 0 && arr[j] > key) { 
+                arr[j + 1] = arr[j]; 
+                j = j - 1; 
+            } 
+            arr[j + 1] = key; 
+        } 
+    } 
 
 	///
 	static class FastScanner {

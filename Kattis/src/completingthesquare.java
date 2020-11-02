@@ -17,10 +17,7 @@ public class completingthesquare {
 		Collections.sort(list);
 		out.println(list);
 		
-		Pos botR = list.get(0).x > list.get(1).x ? list.get(0) : list.get(1);
-		Pos botL = list.get(0).x < list.get(1).x ? list.get(0) : list.get(1);
-		out.println(botR);
-		out.println(botL);
+		
 		
 		///
 		out.flush();

@@ -3,54 +3,35 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
-
-	PrintWriter out;
-
+public class haypoints {
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new haypoints().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
-		out = new PrintWriter(System.out);
+		PrintWriter out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
+		int m = f.nextInt(), n = f.nextInt();
+		Map<String,Integer> map = new HashMap<>();
+		for(int i = 0; i < m; i++) {
+			String s = f.next();
+			int num = f.nextInt();
+			map.put(s, num);
+		}
+		for(int i = 0; i < n; i++) {
+			int score = 0;
+			String s;
+			while(!(s = f.nextLine()).equals(".")) {
+				String[] li = s.split(" ");
+				for(String item : li)
+					score += ( map.get(item) == null ? 0 : map.get(item));
 			}
-			else stack.push(c);
+			out.println(score);
 		}
-		if(ok) out.println("ok so far");
+		//out.println(map);
 		///
-		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///
@@ -99,10 +80,6 @@ public class delimitersoup {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-		}
-
-		public void close() throws IOException {
-			reader.close();
 		}
 	}
 }

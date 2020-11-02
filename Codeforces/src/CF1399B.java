@@ -3,54 +3,52 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
-
-	PrintWriter out;
-
+public class CF1399B {
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new CF1399B().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
-		out = new PrintWriter(System.out);
+		PrintWriter out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
+		int T = f.nextInt();
+		while(T-->0) {
+			int n = f.nextInt();
+			int[] a = new int[n];
+			int[] b = new int[n];
+			int aMin = Integer.MAX_VALUE, bMin = Integer.MAX_VALUE;
+			for(int i = 0; i < n; i++) {
+				int t = f.nextInt();
+				a[i] = t;
+				if(aMin > t) aMin = t;
 			}
-			else stack.push(c);
+			for(int i = 0; i < n; i++) {
+				int t = f.nextInt();
+				b[i] = t;
+				if(bMin > t) bMin = t;
+			}
+			
+			long cnt = 0;
+			for(int i = 0; i < n; i++) {
+				int a1 = a[i] - aMin;
+				int b1 = b[i] - bMin;
+				if(a1 > 0 && b1 > 0) {
+					cnt += Math.min(a1, b1);
+					cnt += Math.abs(a1-b1);
+				}
+				else if(a1 > 0) cnt += a1;
+				else if(b1 > 0) cnt += b1;
+				//out.println(cnt + " " + a1 + " " + b1);
+			}
+			out.println(cnt);
+			
+			//out.println(aMin + " " + Arrays.toString(a));
+			//out.println(bMin + " " + Arrays.toString(b));
+			
 		}
-		if(ok) out.println("ok so far");
 		///
-		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///
@@ -99,10 +97,6 @@ public class delimitersoup {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-		}
-
-		public void close() throws IOException {
-			reader.close();
 		}
 	}
 }

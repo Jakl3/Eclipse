@@ -3,54 +3,39 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
+public class recount {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new recount().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
-				}
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		int max = 0;
+		String save = "";
+		String s;
+		while(!(s=f.nextLine()).equals("***")) {
+			if(!map.containsKey(s)) map.put(s, 0);
+			int t = map.get(s);
+			map.put(s, t+1);
+			if(t > max) {
+				max = t;
+				save = s;
 			}
-			else stack.push(c);
+			else if(t == max) {
+				save = "";
+			}
 		}
-		if(ok) out.println("ok so far");
+		
+		out.println(save.equals("") ? "Runoff!" : save);
 		///
 		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///

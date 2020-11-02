@@ -3,54 +3,42 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class delimitersoup {
+public class polymul1 {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new delimitersoup().run();
+		new polymul1().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out);
 		///
-		int len = f.nextInt();
-		char[] in = f.nextLine().toCharArray();
-		Stack<Character> stack = new Stack<Character>();
-		boolean ok = true;
-		for(int i = 0; i < len; i++) {
-			char c = in[i];
-			if(c == ' ') continue;
-			if(c == ')' || c == '}' || c == ']') {
-				if(stack.isEmpty()) {
-					out.println(c + " " + i);
-					ok = false;
-					break;
-				}
-				else {
-					char chk = stack.pop();
-					if(chk != (c == ')' ? c-1 : c-2)) {
-						out.println(c + " " + i);
-						ok = false;
-						break;
-					}
+		int T = f.nextInt();
+		while(T-->0) {
+			int n1 = f.nextInt();
+			int[] nums1 = f.readArray(n1+1);
+			int n2 = f.nextInt();
+			int[] nums2 = f.readArray(n2+1);
+			
+			int[] res = new int[n1+n2+1];
+			for(int i = 0; i < n1+1; i++) {
+				for(int j = 0; j < n2+1; j++) {
+					res[j+i] = res[j+i] + nums1[i] * nums2[j];
 				}
 			}
-			else stack.push(c);
+			
+			out.println(n1+n2);
+			out.print(res[0]);
+			for(int i = 1; i < n1+n2+1; i++) {
+				out.print(" " + res[i]);
+			}
+			out.println();
 		}
-		if(ok) out.println("ok so far");
 		///
 		f.close();
 		out.flush();
-	}
-	
-	public int indexOf(char cha, char[] c, int start) {
-		char close;
-		for(int i = start; i < c.length; i++) {
-			if(c[i] == cha) return i;
-		}
-		return -1;
 	}
 
 	///
