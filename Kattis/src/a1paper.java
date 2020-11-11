@@ -3,20 +3,26 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class communication {
+public class a1paper {
+
+	PrintWriter out;
+
 	public static void main(String[] args) throws Exception {
-		new communication().run();
+		new a1paper().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
-		PrintWriter out = new PrintWriter(System.out);
+		out = new PrintWriter(System.out);
 		///
 		
-		out.println(22 ^ 22 << 1);
+		// u need 2 A2, 4 A3, 8 A4
+		int N = f.nextInt();
+		int[] papers = f.readArray(N-1);
 		
-		out.println(58 ^ 58 >> 1);
+		
 		///
+		f.close();
 		out.flush();
 	}
 
@@ -53,12 +59,23 @@ public class communication {
 			return Double.parseDouble(next());
 		}
 
+		public int[] readArray(int n) {
+			int[] a = new int[n];
+			for (int i = 0; i < n; i++)
+				a[i] = nextInt();
+			return a;
+		}
+
 		public String nextLine() {
 			try {
 				return reader.readLine();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+		}
+
+		public void close() throws IOException {
+			reader.close();
 		}
 	}
 }

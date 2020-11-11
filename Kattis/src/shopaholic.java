@@ -3,20 +3,31 @@ import java.text.*;
 import java.util.*;
 import java.math.*;
 
-public class communication {
+public class shopaholic {
+
+	PrintWriter out;
+
 	public static void main(String[] args) throws Exception {
-		new communication().run();
+		new shopaholic().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
-		PrintWriter out = new PrintWriter(System.out);
+		out = new PrintWriter(System.out);
 		///
+		int N = f.nextInt();
+		List<Long> list = new ArrayList<Long>();
+		for(int i = 0; i < N; i++) list.add(f.nextLong());
+		Collections.sort(list,Collections.reverseOrder());
 		
-		out.println(22 ^ 22 << 1);
+		long cnt = 0;
+		for(int i = 0; i < list.size(); i ++) 
+			if(i%3==2)
+				cnt += list.get(i);
+		out.println(cnt);
 		
-		out.println(58 ^ 58 >> 1);
 		///
+		f.close();
 		out.flush();
 	}
 
@@ -53,12 +64,23 @@ public class communication {
 			return Double.parseDouble(next());
 		}
 
+		public int[] readArray(int n) {
+			int[] a = new int[n];
+			for (int i = 0; i < n; i++)
+				a[i] = nextInt();
+			return a;
+		}
+
 		public String nextLine() {
 			try {
 				return reader.readLine();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+		}
+
+		public void close() throws IOException {
+			reader.close();
 		}
 	}
 }
