@@ -4,35 +4,64 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class warehouse {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new warehouse().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
+		int N = f.nextInt();
+		while(N-->0) {
+			Map<String,Integer> map = new HashMap<>();
+			int T = f.nextInt();
+			while(T-->0) {
+				String name = f.next();
+				int num = f.nextInt();
+				
+				if(!map.containsKey(name)) map.put(name, 0);
+				map.put(name,map.get(name)+num);
+			}
 			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+			List<Toy> list = new ArrayList<Toy>();
+			for(String item : map.keySet()) {
+				list.add(new Toy(item,map.get(item)));
+			}
+			Collections.sort(list);
+			out.println(list.size());
+			for(Toy item : list) out.println(item);
 		}
 
 		///
 		f.close();
 		out.flush();
+	}
+	
+	class Toy implements Comparable<Toy> {
+		String name;
+		int num;
+		
+		public Toy(String n, int nu) {
+			name = n;
+			num = nu;
+		}
+		
+		public String toString() {
+			return name + " " + num;
+		}
+		
+		public int compareTo(Toy t) {
+			int temp = Integer.compare(t.num, num);
+			if(temp == 0) {
+				return name.compareTo(t.name);
+			}
+			return temp;
+		}
 	}
 
 	static class FastScanner {

@@ -4,30 +4,42 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class costumecontest {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new costumecontest().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		int N = f.nextInt();
+		Map<String,Integer> map = new HashMap<>();
+		while(N-->0) {
+			String s = f.nextLine();
+			if(!map.containsKey(s)) {
+				map.put(s, 0);
+			}
+			map.put(s, map.get(s)+1);
+		}
+		List<String> list = new ArrayList<>();
+		int min = Integer.MAX_VALUE;
+		for(String item : map.keySet()) {
+			if(map.get(item) < min) {
+				list = new ArrayList<>();
+				list.add(item);
+				min = map.get(item);
+			}
+			else if(map.get(item) == min) {
+				list.add(item);
+			}
+		}
+		Collections.sort(list);
+		for(String item : list) {
+			out.println(item);
 		}
 
 		///

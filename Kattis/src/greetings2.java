@@ -4,31 +4,25 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class greetings2 {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new greetings2().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		String s = f.nextLine();
+		for(int i = s.length()-1; i >= 0; i--) {
+			if(s.charAt(i) == 'e') {
+				s = s.substring(0,i) + 'e' + s.substring(i);
+			}
 		}
+		System.out.println(s);
 
 		///
 		f.close();

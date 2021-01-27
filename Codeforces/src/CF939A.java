@@ -4,35 +4,42 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class CF939A {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new CF939A().run();
 	}
-
+	
+	int[] arr;
+	int n;
+	
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		n = f.nextInt();
+		arr = new int[n];
+		for(int i = 0; i < n; i++) {
+			arr[i] = f.nextInt()-1;
 		}
+		
+		System.out.println(solve() ? "YES" : "NO");
+		
+		
 
 		///
 		f.close();
 		out.flush();
+	}
+	
+	boolean solve() {
+		for(int i = 0; i < n; i++) {
+			if(arr[arr[arr[i]]] == i)
+				return true;
+		}
+		return false;
 	}
 
 	static class FastScanner {

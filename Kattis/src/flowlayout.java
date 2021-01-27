@@ -4,30 +4,47 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class flowlayout {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new flowlayout().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
+		
+		while(true) {
+			int maxW = f.nextInt();
+			if(maxW == 0) break;
 			
-			double x = a * m;
-			double y = b * n;
+			int resW = 0, resH = 0;
+			int currW = 0, maxCurrH = 0;
+			while(true) {
+				int w = f.nextInt(), h = f.nextInt();
+				if(w+h == -2) break;
+				
+				
+				if(w + currW > maxW) {
+					resW = Math.max(resW, currW);
+					currW = w;
+					resH += maxCurrH;
+					maxCurrH = h;
+				}
+				else {
+					currW += w;
+					maxCurrH = Math.max(maxCurrH, h);
+				}
+				
+			}
 			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+			resH += maxCurrH;
+			resW = Math.max(resW, currW);
+			out.println(resW + " x " + resH);
+
 		}
 
 		///

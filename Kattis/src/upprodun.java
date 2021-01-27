@@ -4,30 +4,33 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class upprodun {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new upprodun().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		int rooms = f.nextInt();
+		int teams = f.nextInt();
+		
+		int teamsPer = teams/rooms;
+		int roomsExtra = teams % rooms;
+		
+		for(int i = 0; i < rooms; i++) {
+			for(int j = 0; j < teamsPer; j++) {
+				out.print("*");
+			}
+			if(roomsExtra > 0) {
+				out.print("*");
+				roomsExtra--;
+			}
+			out.println();
 		}
 
 		///

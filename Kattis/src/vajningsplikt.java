@@ -4,31 +4,67 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class vajningsplikt {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new vajningsplikt().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		
+		String[] in = f.nextLine().split(" ");
+		if(in[0].equals("South")) {
+			if(in[1].equals("West") && (in[2].equals("East") || in[2].equals("North"))) {
+				out.println("Yes");
+			}
+			else if(in[1].equals("North") && in[2].equals("East")) {
+				out.println("Yes");
+			}
+			else {
+				out.println("No");
+			}
 		}
+		else if(in[0].equals("North")) {
+			if(in[1].equals("East") && (in[2].equals("West") || in[2].equals("South"))) {
+				out.println("Yes");
+			}
+			else if(in[1].equals("South") && in[2].equals("West")) {
+				out.println("Yes");
+			}
+			else {
+				out.println("No");
+			}
+		}
+		
+		else if(in[0].equals("West")) {
+			if(in[1].equals("North") && (in[2].equals("South") || in[2].equals("East"))) {
+				out.println("Yes");
+			}
+			else if(in[1].equals("East") && in[2].equals("South")) {
+				out.println("Yes");
+			}
+			else {
+				out.println("No");
+			}
+		}
+		else if(in[0].equals("East")) {
+			if(in[1].equals("South") && (in[2].equals("North") || in[2].equals("West"))) {
+				out.println("Yes");
+			}
+			else if(in[1].equals("West") && in[2].equals("North")) {
+				out.println("Yes");
+			}
+			else {
+				out.println("No");
+			}
+		}
+		
+		
 
 		///
 		f.close();

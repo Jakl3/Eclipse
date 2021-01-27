@@ -4,31 +4,29 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class tornbygge {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new tornbygge().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		int N = f.nextInt();
+		int[] arr = new int[N];
+		for(int i = 0; i < N; i++) arr[i] = f.nextInt();
+		int cnt = 1;
+		for(int i = N-1; i> 0; i--) {
+			if(arr[i] > arr[i-1]) {
+				cnt++;
+				//out.println(i);
+			}
 		}
+		out.println(cnt);
 
 		///
 		f.close();

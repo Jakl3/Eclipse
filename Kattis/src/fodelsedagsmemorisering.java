@@ -4,32 +4,42 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class fodelsedagsmemorisering {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new fodelsedagsmemorisering().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		int N = f.nextInt();
+		
+		Map<String, String[]> map = new HashMap<>();
+		for(int i = 0; i < N; i++) {
+			String[] in = f.nextLine().split(" ");
+			if(map.containsKey(in[2])) {
+				if(Integer.parseInt(map.get(in[2])[1]) < Integer.parseInt(in[1])) {
+					map.put(in[2], new String[] {in[0],in[1]});
+				}
+			}
+			else {
+				map.put(in[2], new String[] {in[0],in[1]});
+			}
 		}
-
+		
+		List<String> t = new ArrayList<>();
+		for(String item : map.keySet()) {
+			t.add(map.get(item)[0]);
+		}
+		Collections.sort(t);
+		System.out.println(t.size());
+		for(String item : t) {
+			System.out.println(item);
+		}
 		///
 		f.close();
 		out.flush();

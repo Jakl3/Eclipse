@@ -4,30 +4,39 @@ import java.text.*;
 import java.math.*;
 import java.lang.Math.*;
 
-public class billiard {
+public class methodicmultiplication {
 
 	PrintWriter out;
 
 	public static void main(String[] args) throws Exception {
-		new billiard().run();
+		new methodicmultiplication().run();
 	}
 
 	public void run() throws Exception {
 		FastScanner f = new FastScanner();
 		out = new PrintWriter(System.out, true);
 		///
-		while (true) {
-			int a = f.nextInt(), b = f.nextInt(), s = f.nextInt(), m = f.nextInt(), n = f.nextInt();
-			if(a+b+s+m+n == 0) break;
-			
-			double x = a * m;
-			double y = b * n;
-			
-			double angle = Math.atan(y/x) * 180/Math.PI;
-			double dist = Math.sqrt(y*y + x*x);
-			
-			out.printf("%.2f %.2f\n",angle,dist/s);
-			
+		String a = f.nextLine();
+		int a1 = 0;
+		for(int i = 0; i < a.length(); i++) {
+			if(a.charAt(i) == 'S') a1++;
+		}
+		String b = f.nextLine();
+		int b1 = 0;
+		for(int i = 0; i < b.length(); i++) {
+			if(b.charAt(i) == 'S') b1++;
+		}
+		int res = a1*b1;
+		if(res == 0) out.println(0);
+		else {
+			for(int i = 0; i < res; i++) {
+				out.print("S(");
+			}
+			out.print(0);
+			for(int i = 0; i < res; i++) {
+				out.print(")");
+			}
+			out.println();
 		}
 
 		///
